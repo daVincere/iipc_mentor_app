@@ -37,8 +37,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # for django all auth
+    'django.contrib.sites',
+    # from django-allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+
+    # apps
     'main',
-    'accounts',
+    'profiles',
+]
+
+# Added for allauth
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +72,7 @@ ROOT_URLCONF = 'mentor_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,3 +136,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Django lifts stuff from here
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "static_only")
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "media")
+
+# User puts stuff here
+STATICFILES_DIRS = [
+    os.path.join(os.path.dirname(BASE_DIR), "static", "static")
+]
+# Django All Auth
+SITE_ID = 1
+
+SOCIALACCOUNT_AUTO_SIGNUP=True
+SOCIALACCOUNT_STORE_TOKENS=True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = "none"
+SOCIALACCOUNT_QUERY_EMAIL = True
+LOGIN_REDIRECT_URL = "/"

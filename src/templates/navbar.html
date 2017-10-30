@@ -1,0 +1,30 @@
+{% load staticfiles %}
+
+    <nav class="navbar">
+        <ul class="nav pull-left">
+            <li><a href="{% url 'index' %}"><img src="{% static 'img/iipc.jpg' %}" class="img img-responsive home"></a></li>     
+        </ul>
+
+        <ul class="nav nav-pills pull-right">
+<!--             {% url 'account_signup' as signup %}
+            {% url 'account_login' as login %}
+            {% url 'account_logout' as logout %}
+            {% url 'profile' as profile %} -->
+            {% if not request.user.is_authenticated %}
+                <li role="presentation" {% if request.path == signup %} class="active" {% endif %}><a href="#">Sign Up</a></li>
+                <li class="clearfix" style="width: 10px;"></li>
+                <li role="presentation" {% if request.path == login %} class="active" {% endif %}><a href="#">Log In</a></li>
+            {% else %}
+                <li role="presentation" {% if request.path == write%} class="active" {% endif %}><a href="#">Mentor</a></li>
+                    <li class="clearfix" style="width: 10px;"></li>
+
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation" {% if request.path == profile%} class="active" {% endif %}><a href="#">Profile</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li role="presentation" {% if request.path == logout %} class="active" {% endif %}><a href="#">Logout</a></li>
+                    </ul>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
